@@ -1,58 +1,41 @@
-
 import streamlit as st
 
-# Page config
-st.set_page_config(page_title="House Price Guessing Game", layout="wide")
+st.set_page_config(page_title="Guess the Price - Real Estate", layout="centered")
+
 st.title("🏠 Guess the Price - Real Estate Challenge")
 
-# Images and layout
-st.subheader("🏘️ Neighborhood and Location")
-col1, col2 = st.columns(2)
-with col1:
-    st.image("genel_konum.webp", caption="📍 Ames, Iowa - General Region", use_column_width=True)
-with col2:
-    st.image("konum.webp", caption="🏡 Northridge Heights Neighborhood", use_column_width=True)
+# 🏡 House Features Section (comes before images)
+st.header("🏡 House Features")
+st.markdown("""
+- **Room Count**: 3 bedrooms, 2 bathrooms  
+- **Living Area**: 1,480 sqft (~137 m²)  
+- **Year Built**: 2003 (Renovated in 2009)  
+- **Neighborhood**: Northridge Heights, Ames, Iowa  
+- **Garage**: 2-car garage (620 sqft)  
+- **Deck / Outdoor**: 252 sqft deck + 73 sqft patio  
+""")
 
-st.subheader("📐 Floor Plan")
-st.image("plan.webp", caption="House Layout Plan", use_column_width=True)
+# 📸 Image Section
+st.header("🏘️ Neighborhood and Location")
+st.image("genel_konum.webp", caption="📍 Ames, Iowa - General Region", use_container_width=True)
+st.image("ev_dis.webp", caption="🏠 House Exterior", use_container_width=True)
+st.image("mutfak.webp", caption="🍽️ Kitchen", use_container_width=True)
+st.image("banyo.webp", caption="🛁 Bathroom", use_container_width=True)
 
-st.subheader("🛠️ Key Areas - Photos")
-st.image("garaj.webp", caption="🚗 Garage - 2 Car Space", use_column_width=True)
-st.image("mutfak.webp", caption="🍽️ Kitchen - Good Quality Finish", use_column_width=True)
-st.image("odalar.webp", caption="🛏️ Bedrooms and Bathrooms", use_column_width=True)
-st.image("ev_genel.webp", caption="🏠 Exterior View of the House", use_column_width=True)
+# 💰 User Input Area
+st.subheader("💸 Enter Your Price Guess")
+user_price = st.number_input("Your guess (in USD):", min_value=0, step=1000)
 
-# House features
-description = """
-### 📋 House Features
-- **3 bedrooms**, **2 bathrooms**  
-- **1,480 sqft (~137 m²)** living space  
-- **Built in 2003**, **renovated in 2009**  
-- **Neighborhood:** NAmes  
-- **Exterior:** Vinyl Siding + Brick Face  
-- **Finished Basement (GLQ)**  
-- **Gas Heating (GasA)**  
-- **Kitchen Quality:** Good (Gd)  
-- **2-car garage**, 620 sqft  
-- **252 sqft wooden deck**, **73 sqft patio**, **Wooden fence**, **shed**
-"""
-st.markdown(description)
+# 🎯 Real Price (kept hidden)
+real_price = 214000
 
-# Guess input
-st.subheader("💬 Enter your price guess (USD)")
-guess = st.slider("What do you think this home sold for in 2010?", min_value=150000, max_value=550000, step=1000)
+# 🚀 Result Button
+if st.button("🎯 Make a Guess"):
+    diff = abs(user_price - real_price)
 
-# Real price
-actual_price = 214000
-diff = guess - actual_price
-
-# Feedback logic
-st.subheader("🔍 Feedback")
-if abs(diff) <= 5000:
-    st.success("👏 Incredible! You were nearly spot on.\n\nThis level of accuracy can save thousands in time, negotiations, and decision-making. You're clearly tuned into what makes a property valuable 👀")
-elif diff < -10000:
-    st.error(f"😟 Your guess was ${abs(diff):,} below the actual price.\n\nIf this home had been listed at your price, the seller could have taken a loss. Did you overlook the finished basement, garage, or kitchen quality?")
-elif diff > 10000:
-    st.warning(f"⏳ That’s quite high!\n\nOverpricing by ${abs(diff):,} can result in longer time on market, interest, taxes, and markdown pressure. Buyers may lose interest.")
-else:
-    st.info("🔍 Close guess!\n\nYou're within a realistic negotiation margin. Great effort!")
+    if diff <= 5000:
+        st.success("👏 Spot on! Your estimate is almost perfect.\nYou could save buyers and sellers both time and money.")
+    elif user_price < real_price:
+        st.warning("⬇️ Your guess is too low. This house is actually more expensive.")
+    else:
+        st.warning("⬆️ Your guess is too high. This house costs less than your estimate.")
