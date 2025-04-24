@@ -46,8 +46,13 @@ if st.button("🎯 Make a Guess"):
     diff = abs(user_price - real_price)
 
     if diff <= 5000:
-        st.success("👏 Spot on! Your estimate is almost perfect.\nYou could save buyers and sellers both time and money.")
+        st.success("🏆 *Incredible!* You guessed almost spot on!\nYou must have a sixth sense for real estate deals 🧠💰")
+        st.image("https://media.giphy.com/media/3oz8xKaR836UJOYeOc/giphy.gif", caption="👏 Amazing guess!")
+        
     elif user_price < real_price:
-        st.warning("⬇️ Your guess is too low. This house is actually more expensive.")
+        st.warning("📉 *Too Low!* You just undersold a gem!\nThis house is more valuable than that 💎")
+        st.image("https://media.giphy.com/media/xT5LMzikV2WcZRzCBK/giphy.gif", caption="Oops... it’s more expensive!")
+
     else:
-        st.warning("⬆️ Your guess is too high. This house costs less than your estimate.")
+        st.warning("📈 *Too High!* Easy there, billionaire! 💸\nTurns out this one's a better deal than you thought 😉")
+        st.image("https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif", caption="That guess was way over!")
