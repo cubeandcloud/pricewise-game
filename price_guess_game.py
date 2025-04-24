@@ -1,10 +1,11 @@
 import streamlit as st
+import os
 
 st.set_page_config(page_title="Guess the Price - Real Estate", layout="centered")
 
 st.title("🏠 Guess the Price - Real Estate Challenge")
 
-# 🏡 House Features
+# 🏡 House Features Section
 st.header("🏡 House Features")
 st.markdown("""
 - **Room Count**: 3 bedrooms, 2 bathrooms  
@@ -15,31 +16,38 @@ st.markdown("""
 - **Deck / Outdoor**: 252 sqft deck + 73 sqft patio  
 """)
 
-# 📸 Images
-st.header("📸 Visual Tour")
+# 📸 Images with safe loading (optional but recommended)
+st.header("🏘️ Neighborhood and Location")
 
-st.image("house_images/genel_konum.webp", caption="📍 Ames, Iowa - General Region", use_column_width=True)
-st.image("house_images/dış.webp", caption="🏠 Exterior View", use_column_width=True)
-st.image("house_images/mutfak.webp", caption="🍽️ Kitchen", use_column_width=True)
-st.image("house_images/odalar.webp", caption="🛏️ Rooms & Bathrooms", use_column_width=True)
+image_files = {
+    "konum.webp": "📍 Ames, Iowa - General Region",
+    "ev_genel.webp": "🏠 House Exterior",
+    "mutfak.webp": "🍽️ Kitchen",
+    "odalar.webp": "🛏️ Rooms",
+    "garaj.webp": "🚗 Garage",
+    "dış.webp": "🌳 Backyard / Garden",
+    "plan.webp": "📐 Floor Plan"
+}
 
-# 💰 Price Guess Input
-st.subheader("💸 Make Your Price Guess")
-user_price = st.number_input("What do you think this house sold for? (in USD)", min_value=0, step=1000)
+for filename, caption in image_files.items():
+    if os.path.exists(filename):
+        st.image(filename, caption=caption, use_container_width=True)
+    else:
+        st.warning(f"⚠️ Missing file: {filename}")
 
-# 🎯 Real Price
+# 💸 User Input for Price Guess
+st.subheader("💸 Enter Your Price Guess")
+user_price = st.number_input("Your guess (in USD):", min_value=0, step=1000)
+
+# 🎯 Real Price (kept hidden in game logic)
 real_price = 214000
 
-# 🧠 Result Logic
-if st.button("🎯 Submit Guess"):
+if st.button("🎯 Make a Guess"):
     diff = abs(user_price - real_price)
 
-    st.subheader("🔍 Feedback")
     if diff <= 5000:
-        st.success("👏 Amazing! You're spot on.\nYour guess is almost perfect — this level of accuracy is rare.")
-    elif user_price < real_price - 10000:
-        st.warning(f"⬇️ Your estimate is **${real_price - user_price:,.0f}** too low.\nIf listed at this price, the seller could have faced a major loss.")
-    elif user_price > real_price + 10000:
-        st.warning(f"⬆️ Your estimate is **${user_price - real_price:,.0f}** too high.\nOverpricing could have led to longer time on market and lost buyers.")
+        st.success("👏 Spot on! Your estimate is almost perfect.\nYou could save buyers and sellers both time and money.")
+    elif user_price < real_price:
+        st.warning("⬇️ Your guess is too low. This house is actually more expensive.")
     else:
-        st.info("✅ Not bad! You're within a realistic negotiation margin.\nYou have a good sense of property value.")
+        st.warning("⬆️ Your guess is too high. This house costs less than your estimate.")
