@@ -51,8 +51,9 @@ if st.button("🎯 Make a Guess"):
         
     elif user_price < real_price:
         st.warning("📉 *Too Low!* You just undersold a gem!\nThis house is more valuable than that 💎")
-        st.image("https://media.giphy.com/media/xT5LMzikV2WcZRzCBK/giphy.gif", caption="Oops... it’s more expensive!")
+        st.image("https://media.giphy.com/media/xT5LMzikV2WcZRzCBK/giphy.gif", caption="Oops... it's more expensive!")
 
     else:
         st.warning("📈 *Too High!* Easy there, billionaire! 💸\nTurns out this one's a better deal than you thought 😉")
         st.image("https://media.giphy.com/media/3o7abldj0b3rxrZUxW/giphy.gif", caption="That guess was way over!")
+
