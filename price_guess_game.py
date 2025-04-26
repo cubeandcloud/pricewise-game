@@ -9,11 +9,11 @@ st.title("🏠 Guess the Price - Real Estate Challenge")
 st.header("🏡 House Features")
 st.markdown("""
 - **Room Count**: 3 bedrooms, 2 bathrooms  
-- **Living Area**: 1,480 sqft (~137 m²)  
+- **Living Area**: 137 m²  
 - **Year Built**: 2003 (Renovated in 2009)  
 - **Neighborhood**: Northridge Heights, Ames, Iowa  
-- **Garage**: 2-car garage (620 sqft)  
-- **Deck / Outdoor**: 252 sqft deck + 73 sqft patio  
+- **Garage**: 2-car garage (57 m²)  
+- **Deck / Outdoor**: 24 m² deck + 7 m² patio  
 """)
 
 # 📸 Images with safe loading (optional but recommended)
