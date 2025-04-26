@@ -1,6 +1,36 @@
 import streamlit as st
 import os
 
+
+# Stil ayarı ile ortalama
+st.markdown(
+    """
+    <style>
+    .centered-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
+# Küçük Logo gibi PH1.webp görseli
+with st.container():
+    st.markdown('<div class="centered-image">', unsafe_allow_html=True)
+    st.image("PH1.webp", width=70)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+# Başlık
+st.markdown(
+    """
+    <h1 style="text-align: center;">🏠 Guess the Price - Real Estate Challenge</h1>
+    """,
+    unsafe_allow_html=True
+)
+
+
 st.set_page_config(page_title="Guess the Price - Real Estate", layout="centered")
 
 st.title("🏠 Guess the Price - Real Estate Challenge")
